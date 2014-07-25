@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="source_no_signal">No Signal</string>
+    <string name="not_support_commnet">Don\'t Support Comment on 3DMode</string>
+    <string name="not_support_epgclient">Don\'t Support Enjoy More on 3DMode</string>
+    <string name="not_support_external_source">Weibo NA if VGA, HDMI or Component input</string>
+    <string name="not_support_3d">Don\'t Support 3DMode In Current Source</string>
+    <string name="unsupport_3d">Don\'t Support 3DMode</string>
+    <string name="standby_tips">System Will Standby</string>
+    <string name="timing_not_support">Don\'t Support Current TimingType</string>
+    <string name="comment">Comment</string>
+    <string name="allprogram">All Program</string>
+    <string name="source_title">Source</string>
+	<string name="tv_fc_title">Favorite Channels</string>
+	<string name="tvwall_tips">Coming Soon</string>
+	<string name="stbcig_tips">Service has been not configured</string>
+
+    <!-- All Source Name -->
+    <string name="source_atv">ATV</string>
+    <string name="source_dtv">DTV</string>
+    <string name="source_cvbs">CVBS</string>
+    <string name="source_component">YPbPr</string>
+    <string name="source_vga">VGA</string>
+    <string name="source_hdmi0">HDMI-1</string>
+    <string name="source_hdmi1">HDMI-2</string>
+    <string name="source_hdmi2">HDMI-3</string>
+    <string name="source_hdmi3">HDMI-4</string>
+
+    <string-array name="tv_menu_list">
+        <item>LeChannel</item>
+        <item>Comment</item>
+        <item>Source</item>
+        <item>Setting</item>
+        <item>Linker Config</item>
+    </string-array>
+    <string-array name="tv_menu_dtv_list">
+        <item>LeChannel</item>
+        <item>Comment</item>
+        <item>EPG</item>
+        <item>Source</item>
+        <item>Setting</item>
+        <item>Linker Config</item>
+    </string-array>
+
+</resources>

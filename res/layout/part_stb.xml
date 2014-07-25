@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="290dp"
+                android:layout_marginTop="176dp"
+                android:visibility="gone">
+
+	<TextView
+			android:layout_width="130dp"
+			android:layout_height="63dp"
+			android:layout_marginLeft="55dp"
+			android:gravity="right"
+			android:paddingTop="15dp"
+			style="@style/text_30_b"
+			android:text="@string/final_name_operator"/>
+
+	<TextView
+			android:layout_width="105dp"
+			android:layout_height="63dp"
+			android:layout_below="@+id/select_operator"
+			android:layout_marginTop="25dp"
+			android:layout_marginLeft="75dp"
+			android:gravity="right"
+			android:paddingTop="15dp"
+			style="@style/text_30_b"
+			android:text="@string/final_name_topbox_brand"/>
+
+	<TextView
+			android:layout_width="105dp"
+			android:layout_height="63dp"
+			android:layout_below="@+id/select_brand"
+			android:layout_marginTop="25dp"
+			android:layout_marginLeft="75dp"
+			android:gravity="right"
+			android:paddingTop="15dp"
+			style="@style/text_30_b"
+			android:text="@string/final_name_topbox_model"/>
+
+    <com.taylor.stb.view.STBButton
+			android:id="@+id/select_operator"
+			android:layout_width="440dp"
+			android:layout_height="63dp"
+			android:gravity="center"
+			android:background="@drawable/select_spinner_selector"
+			style="@style/text_30_f"
+			android:layout_marginLeft="195dp"/>
+
+    <com.taylor.stb.view.STBButton
+			android:id="@+id/select_brand"
+			android:layout_below="@+id/select_operator"
+			android:layout_marginTop="25dp"
+			android:layout_width="440dp"
+			android:layout_height="63dp"
+			android:gravity="center"
+			android:background="@drawable/select_spinner_selector"
+			style="@style/text_30_f"
+			android:layout_marginLeft="195dp"/>
+
+    <com.taylor.stb.view.STBButton
+			android:id="@+id/select_model"
+			android:layout_below="@+id/select_brand"
+			android:layout_marginTop="25dp"
+			android:layout_width="440dp"
+			android:layout_height="63dp"
+			android:gravity="center"
+			android:background="@drawable/select_spinner_selector"
+			style="@style/text_30_f"
+			android:layout_marginLeft="195dp"/>
+
+	<ImageView
+			android:layout_width="341dp"
+			android:layout_height="174dp"
+			android:paddingLeft="24dp"
+			android:src="@drawable/exampel"
+			android:layout_toRightOf="@+id/select_brand"
+			android:layout_alignBottom="@+id/select_model"/>
+
+	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/tip_find_operator"
+			style="@style/text_24_b"
+			android:layout_below="@id/select_model"
+			android:layout_marginTop="23dp"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="95dp"/>
+
+
+</RelativeLayout>

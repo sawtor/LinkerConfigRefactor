@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@drawable/window_background"
+    android:layout_width="1086dp"
+    android:layout_height="660dp"
+    android:id="@+id/fragment_layout_main">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/fragment_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="76dp"
+            android:layout_marginLeft="86dp"
+            android:text="Show title here"
+            style="@style/text_40_f"/>
+        <TextView
+            android:id="@+id/fragment_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="80dp"
+            android:text="show message here"
+            style="@style/text_24_b"/>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/part_location"
+        layout="@layout/part_location"/>
+    <include
+        android:id="@+id/part_stb"
+        layout="@layout/part_stb"/>
+
+    <Button
+        android:id="@+id/btn_left"
+        android:layout_width="221dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="518dp"
+        android:layout_marginLeft="88dp"
+        android:background="@drawable/common_button"
+        style="@style/text_30_f"
+        android:alpha="0.8"/>
+
+    <Button
+        android:id="@+id/btn_center"
+        android:layout_width="221dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="518dp"
+        android:layout_marginLeft="317dp"
+        android:background="@drawable/common_button"
+        style="@style/text_30_f"
+        android:alpha="0.8"/>
+
+    <Button
+        android:id="@+id/btn_right"
+        android:layout_width="221dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="518dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="88dp"
+        android:background="@drawable/common_button"
+        style="@style/text_30_f"
+        android:alpha="0.8"/>
+
+
+</RelativeLayout>

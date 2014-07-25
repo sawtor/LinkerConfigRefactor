@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="176dp"
+                android:visibility="gone">
+
+	<TextView
+			android:layout_width="130dp"
+			android:layout_height="63dp"
+			android:layout_marginLeft="50dp"
+			android:gravity="right"
+			android:paddingTop="15dp"
+			style="@style/text_30_b"
+			android:text="@string/final_name_province"/>
+
+	<TextView
+			android:layout_width="105dp"
+			android:layout_height="63dp"
+			android:layout_below="@+id/select_province"
+			android:layout_marginTop="25dp"
+			android:layout_marginLeft="75dp"
+			android:gravity="right"
+			android:paddingTop="15dp"
+			style="@style/text_30_b"
+			android:text="@string/final_name_city"/>
+
+	<TextView
+			android:layout_width="130dp"
+			android:layout_height="63dp"
+			android:layout_below="@+id/select_city"
+			android:layout_marginTop="25dp"
+			android:layout_marginLeft="50dp"
+			android:gravity="right"
+			android:paddingTop="15dp"
+			style="@style/text_30_b"
+			android:text="@string/final_name_quxian"/>
+
+	<com.taylor.stb.view.STBButton
+			android:id="@+id/select_province"
+			android:layout_width="554dp"
+			android:layout_height="63dp"
+			android:gravity="center"
+			android:background="@drawable/select_spinner_selector"
+			style="@style/text_30_f"
+			android:layout_marginLeft="195dp"
+
+			/>
+
+    <com.taylor.stb.view.STBButton
+			android:id="@+id/select_city"
+			android:layout_below="@+id/select_province"
+			android:layout_marginTop="25dp"
+			android:layout_width="554dp"
+			android:layout_height="63dp"
+			android:gravity="center"
+			android:background="@drawable/select_spinner_selector"
+			style="@style/text_30_f"
+			android:layout_marginLeft="195dp"/>
+
+    <com.taylor.stb.view.STBButton
+			android:id="@+id/select_distract"
+			android:layout_below="@+id/select_city"
+			android:layout_marginTop="25dp"
+			android:layout_width="554dp"
+			android:layout_height="63dp"
+			android:gravity="center"
+			android:background="@drawable/select_spinner_selector"
+			style="@style/text_30_f"
+            android:enabled="false"
+			android:layout_marginLeft="195dp"/>
+</RelativeLayout>

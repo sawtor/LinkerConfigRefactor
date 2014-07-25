@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LinkerConfigRefactor</string>
+    <string name="button_reload">Reload</string>
+    <string name="fragment_title">Show Title Here</string>
+    <string name="fragment_button_left">Left</string>
+    <string name="fragment_button_center">Center</string>
+    <string name="fragment_button_right">Right</string>
+    
+    
+    
+    
+    <string name="run_first_introduce_left">While pairing succeed, you can control STB using TV RC</string>
+    <string name="run_first_introduce_right">While pairing succeed, you can choose more TV programme</string>
+    <string name="seatching_linker">Finding Linker device</string>
+    <string name="open_linker">Please hold the function key until turn orange.</string>
+    <string name="topbox_dev">STB control suite device</string>
+    <string name="message_address">The correct address will help to complete the information of STB configuration quickly and accurately</string>
+    <string name="message_where_operatorinfo">Find information on the back of STB</string>
+    <string name="message_your_number">Complete your phone number, we will contact you soon</string>
+    <string name="title_user_address">Your address</string>
+    <string name="title_operator_info">Operator information</string>
+    <string name="title_your_problem">Sorry! </string>
+    <string name="title_config_success">Succeed! </string>
+    <string name="topbox_list_title">Have found the STB control package equipment, please match the connection…</string>
+    <string name="dialog_message_network_error">Network error, check please</string>
+    <string name="final_name_province">Province:</string>
+    <string name="final_name_city">City:</string>
+    <string name="final_name_quxian">Distract:</string>
+    <string name="final_name_operator">Operator:</string>
+    <string name="final_name_topbox_brand">Brand:</string>
+    <string name="final_name_topbox_model">Model:</string>
+    <string name="please_selsct">Please choose</string>
+    <string name="btn_next">Next step</string>
+    <string name="btn_previous">Last step</string>
+    <string name="btn_exit">Quit</string>
+    <string name="btn_send">Send</string>
+    <string name="btn_see_it">Yes</string>
+    <string name="btn_cant_see_it">No</string>
+    <string name="btn_right">Yes</string>
+    <string name="btn_wrong">No</string>
+    <string name="btn_start_sue">Start</string>
+    <string name="text_connect">Test</string>
+    <string name="btn_research">Search again</string>
+    <string name="click_me">Click me</string>
+    <string name="look_voice_nar">Please pay attention to the screen when the volume bar appears</string>
+    <string name="result_image_text">Attention! Change to channel 8, Right? </string>
+    <string name="can_see_8">Is it changed correctly? </string>
+    <string name="can_see_voice_bar">Have you seen the volume bar? </string>
+    <string name="editor_hint">Your mobile phone number</string>
+    <string name="well_done">Awesome! All the settings completed. </string>
+    <string name="messge_success">You could change settings in the menu</string>
+    <string name="error_chnnel_id_failed">Sorry:Incorrect channel number</string>
+    <string name="error_operator_not_found">Sorry:The operator is not exist</string>
+    <string name="error_brand_not_found">Sorry:The STB model is not exist</string>
+    <string name="error_stb_cannot_ctrl">Sorry:Can not control the STB</string>
+    <string name="where">Sorry! </string>
+
+    <string name="warm_tip">information</string>
+    <string name="message_no_linker">No pairing Linker exist,\nPlease hold the function key until turn orange.</string>
+    <string name="keep_on_linker">Please turn off other Linker remain the one you want to pair.</string>
+    <string name="tip_find_operator">The operator in on the opening screen.</string>
+    <string name="toast_send_ok">Information submitted, We will contact you soon</string>
+    <string name="sent">Succeed</string>
+    <string name="prepare_dev_available">If you want to replace linker device replace, or press next</string>
+    <string name="prepare_btn_change_dev">Change</string>
+    <string name="prepare_btn_next">Next</string>
+    <string name="prepare_btn_exit">Exit</string>
+    <string name="prepare_btn_not_available">Press the function key until the light turns orange, press next when the green light is blinking.</string>
+    <string name="prepare_status_succeed">Connect to Linker succeed</string>
+
+</resources>

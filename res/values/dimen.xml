@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_width">1086dp</dimen>
+    <dimen name="activity_height">660dp</dimen>
+
+
+    <dimen name="install_or_uninstall_sucess_prompt_text">35sp</dimen>
+    <dimen name="install_or_uninstall_sucess_appname_text">30sp</dimen>
+    <dimen name="dialog_button_width">223dp</dimen>
+    <dimen name="dialog_width">741dp</dimen>
+    <dimen name="dialog_height">372dp</dimen>
+
+</resources>

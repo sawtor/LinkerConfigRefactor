@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_marginTop="186dp"
+                android:layout_height="wrap_content">
+
+	<Button
+			android:id="@+id/test_btn_click_me"
+			android:layout_width="195dp"
+			android:layout_height="143dp"
+			android:gravity="center"
+			android:textColor="#FFFFFF"
+			android:textSize="48sp"
+			android:background="@drawable/common_button"
+			android:text="@string/click_me"
+			android:singleLine="true"
+			android:layout_centerHorizontal="true"/>
+	<TextView
+			android:id="@+id/message_test"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			style="@style/text_24_d"
+			android:text="@string/look_voice_nar"
+			android:layout_marginTop="20dp"
+			android:layout_below="@+id/test_btn_click_me"
+			android:singleLine="true"
+			android:layout_centerHorizontal="true"/>
+
+	<ImageView
+			android:id="@+id/test_result_image"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/message_test"
+			android:background="@drawable/test_result"
+			android:layout_centerHorizontal="true"
+			android:visibility="gone"
+			android:layout_marginTop="10dp"/>
+
+</RelativeLayout>

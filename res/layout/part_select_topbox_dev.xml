@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+	<TextView
+			android:id="@+id/title_dev_list"
+			android:layout_width="655dp"
+			android:layout_height="wrap_content"
+			android:gravity="left"
+			style="@style/text_30_b"
+			android:text="@string/topbox_list_title"
+			android:layout_marginTop="180dp"
+			android:singleLine="true"
+			android:layout_centerHorizontal="true"/>
+
+	<com.lenovo.tv.stb.view.STBListView
+			android:id="@+id/dev_list"
+			android:layout_width="655dp"
+			android:layout_height="265dp"
+            android:listSelector="@drawable/dev_list_selector"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="10dp"
+			android:dividerHeight="30dp"
+			android:divider="@color/transparent"
+			android:layout_below="@+id/title_dev_list"/>
+
+</RelativeLayout>

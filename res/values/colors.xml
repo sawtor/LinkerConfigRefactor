@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="shadow">#cc222222</color>
+    <color name="transparent">#00000000</color>
+    <color name="bgcolor">#157e84</color>
+    <color name="btn_color_default">#bbbbbb</color>
+    <color name="title">#ffffff</color>
+    <color name="text">#ffffff</color>
+    <color name="content">#bbbbbb</color>
+    <color name="spinner_disabled">#bbbbbb</color>
+    <color name="spinner_enable">#ffffff</color>
+	<color name="btn_color_focused">#ffffff</color>
+	<color name="textColor">#bbbbbb</color>
+</resources>
+

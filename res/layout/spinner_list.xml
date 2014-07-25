@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:background="@drawable/spinner_bg"
+              android:layout_height="360dp">
+	<ImageButton
+			android:id="@+id/sp_btn_top"
+			android:layout_width="45dp"
+			android:layout_height="27dp"
+			android:layout_marginTop="8dp"
+			android:layout_marginBottom="7dp"
+			android:focusable="false"
+			android:background="@drawable/spinner_btn_top_selector"
+			android:layout_centerHorizontal="true"/>
+
+	<com.taylor.stb.view.STBListView
+			android:id="@+id/data_list"
+			android:divider="@null"
+			android:focusable="true"
+			android:layout_height="265dp"
+			android:layout_width="fill_parent"
+			android:focusableInTouchMode="true"
+			android:background="@color/transparent"
+			android:listSelector="@drawable/spinner_selector"
+			android:scrollbarTrackVertical="@drawable/scrollbar_bg"
+			android:scrollbarThumbVertical="@drawable/scrollbar_slider"
+            android:layout_marginTop="42dp"
+			android:fadeScrollbars="false"
+            android:visibility="gone"/>
+    <ProgressBar
+            android:id="@+id/spinner_progressbar"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@anim/leaf"/>
+
+	<ImageButton
+			android:id="@+id/sp_btn_bottom"
+			android:layout_width="45dp"
+			android:layout_height="27dp"
+			android:layout_marginTop="314dp"
+			android:layout_marginBottom="8dp"
+			android:focusable="false"
+			android:background="@drawable/spinner_btn_bottom_selector"
+			android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>
