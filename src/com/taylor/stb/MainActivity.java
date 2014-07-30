@@ -2,6 +2,7 @@ package com.taylor.stb;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,11 +12,14 @@ import android.view.View;
 
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Toast;
+import com.taylor.stb.service.LocationService;
 import com.taylor.stb.view.STBButton;
 import com.taylor.stb.view.STBSpinner;
 import com.tvezu.urc.STBSettingManager;
 import com.tvezu.urc.restclient.Location;
 import com.tvezu.urc.restclient.Operator;
+import com.tvezu.urc.restclient.SetTopBox;
 import com.tvezu.urc.restclient.UrcObject;
 
 import java.util.ArrayList;
@@ -24,9 +28,6 @@ import java.util.List;
 public class MainActivity extends Activity implements FragmentEvent{
 
     private static final String TAG = Constant.TAG ;
-
-    private static final String LOCATION_FRAGMENT_NAME = "location";
-    private static final String STB_FRAGMENT_NAME = "stb";
 
     private STBDataManager mDataManager ;
 
@@ -43,9 +44,6 @@ public class MainActivity extends Activity implements FragmentEvent{
     private PopupWindow mOptionShower;
 
     private List<String> mFragmentList = new ArrayList<String>();
-
-    Bundle mLocationBundle = new Bundle();
-
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -75,7 +73,9 @@ public class MainActivity extends Activity implements FragmentEvent{
         Log.d(TAG,"Main activity on start, init spinner and start to choose location.");
         mSpinner2 = new STBSpinner(this,mDataManager);
         mDataManager.setDataListener(mSpinner2);
-        chooseLocation();
+        //chooseLocation();
+        Intent intent = new Intent(this, LocationService.class);
+        startService(intent);
     }
 
     public void onSourceSelected(String str){
@@ -83,29 +83,26 @@ public class MainActivity extends Activity implements FragmentEvent{
         stbSettingManager.setSignalSource(str);
     }
 
-//    public void onSpinnerReady(STBSpinner spinner){
-//        mDataManager.setDataListener(spinner);
-//        mDataManager.getLocationByCityCode(131);
-//    }
-
     public void chooseLocation(){
+        Log.d(TAG,"Choose Location Fragment");
         mFragmentTransaction = getFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.main_container, mLocationFragment, LOCATION_FRAGMENT_NAME);
-        mFragmentTransaction.addToBackStack(null);
-        mFragmentTransaction.commit();
-        mFragmentList.add(LOCATION_FRAGMENT_NAME);
+        mFragmentTransaction.replace(R.id.main_container, mLocationFragment, Constant.LOCATION_FRAGMENT_NAME);
         mLocationFragment.setSpinner(mSpinner2);
-        //mDataManager.requestData(STBDataManager.ContentType.BAIDU_LOCATION);
+        mFragmentTransaction.commit();
+        mFragmentList.add(Constant.LOCATION_FRAGMENT_NAME);
+
     }
 
     public void chooseSTB(){
+        Log.d(TAG, "Choose STB Fragment");
         mFragmentTransaction = getFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.main_container,mSTBFragment,STB_FRAGMENT_NAME);
-        mFragmentTransaction.addToBackStack(null);
-        mFragmentTransaction.commit();
-        mFragmentList.add(STB_FRAGMENT_NAME);
+        mFragmentTransaction.replace(R.id.main_container, mSTBFragment, Constant.STB_FRAGMENT_NAME);
         mSTBFragment.setSpinner(mSpinner2);
+        mFragmentTransaction.commit();
+        mFragmentList.add(Constant.STB_FRAGMENT_NAME);
     }
+
+
 
     public void showSpinnerOptions(STBButton button){
         if (mOptionShower == null){
@@ -142,6 +139,12 @@ public class MainActivity extends Activity implements FragmentEvent{
             case OPERATOR:
                 mDataManager.setOperator((Operator)object);
                 break;
+            case STB_BRAND:
+                mDataManager.setBrand(object);
+                break;
+            case STB_MODEL:
+                mDataManager.setSetTopBox((SetTopBox)object);
+                break;
         }
     }
 
@@ -150,9 +153,9 @@ public class MainActivity extends Activity implements FragmentEvent{
         switch (view.getId()){
             case R.id.btn_left:
                 String currentFragmentTAG = mFragmentList.get(mFragmentList.size()-1);
-                if (LOCATION_FRAGMENT_NAME.equals(currentFragmentTAG)){  //Means location fragment is showing now.
+                if (Constant.LOCATION_FRAGMENT_NAME.equals(currentFragmentTAG)){  //Means location fragment is showing now.
                     chooseSTB();
-                }else {  //Means stb fragment is showing now.
+                }else {
                     chooseLocation();
                 }
                 break;
@@ -171,17 +174,32 @@ public class MainActivity extends Activity implements FragmentEvent{
                 showSpinnerOptions(mSTBFragment.mOperatorSpinner);
                 break;
             case R.id.select_brand:
+                showSpinnerOptions(mSTBFragment.mBrandSpinner);
+                break;
+            case R.id.select_model:
+                showSpinnerOptions(mSTBFragment.mModelSpinner);
                 break;
 
         }
     }
 
+    @Override
+    public void onViewReady(String fragmentTAG) {
+        if (Constant.LOCATION_FRAGMENT_NAME.equals(fragmentTAG)){
+            mLocationFragment.setProvince(mDataManager.getProvince());
+            mLocationFragment.setCity(mDataManager.getCity());
+        }else {
+            mSTBFragment.setOperator(mDataManager.getOperator());
+            mSTBFragment.setBrand(mDataManager.getBrand());
+            mSTBFragment.setModel(mDataManager.getSetTopBox());
+        }
+    }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         Log.d(TAG,"back");
-        if (LOCATION_FRAGMENT_NAME.equals(mFragmentList.get(mFragmentList.size()-1))){ //current fragment is location fragment.finish activity.
+        if (Constant.LOCATION_FRAGMENT_NAME.equals(mFragmentList.get(mFragmentList.size()-1))){ //current fragment is location fragment.finish activity.
             this.finish();
         }
     }

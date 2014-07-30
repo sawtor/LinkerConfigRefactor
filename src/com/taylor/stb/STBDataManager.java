@@ -8,10 +8,7 @@ import com.tvezu.restclient.AsyncRESTClient;
 import com.tvezu.restclient.RESTException;
 import com.tvezu.urc.restclient.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -34,9 +31,12 @@ public class STBDataManager implements AsyncRESTClient.OnErrorListener,AsyncREST
     private Location mBaiduProvince,mBaiduCity;
     public Location mDefaultProvince,mDefaultCity;
     private List<Location> mAllProvince;
+    private Map<String,List<SetTopBox>> mSTBMap;
 
     private Location mProvince,mCity;
     private Operator mOperator;
+    private UrcObject mBrand;
+    private SetTopBox mSetTopBox;
 
     private static final int MAX_REQUEST_TIMES = 3 ;
     private int requestTimes = 0 ;
@@ -47,10 +47,20 @@ public class STBDataManager implements AsyncRESTClient.OnErrorListener,AsyncREST
 
     public void setCity(Location city){
         mCity = city;
+        mOperator = null;
     }
 
     public void setOperator(Operator operator){
         mOperator = operator;
+    }
+
+    public void setBrand(UrcObject brand){
+        mBrand = brand;
+    }
+
+    public void setSetTopBox(SetTopBox setTopBox){
+        mSetTopBox = setTopBox;
+        afterSTBSelected();
     }
 
     public Location getProvince(){
@@ -65,6 +75,14 @@ public class STBDataManager implements AsyncRESTClient.OnErrorListener,AsyncREST
         return mOperator;
     }
 
+    public UrcObject getBrand(){
+        return mBrand;
+    }
+
+    public SetTopBox getSetTopBox(){
+        return mSetTopBox;
+    }
+
 
     public STBDataManager(Context context){
         this.mContext = context;
@@ -73,9 +91,10 @@ public class STBDataManager implements AsyncRESTClient.OnErrorListener,AsyncREST
 
     }
 
+
     public void setDataListener(DataListener listener){
         this.mDataListener = listener;
-        Log.d(TAG,mDataListener != null ? "非空" : "空");
+        Log.d(TAG,mDataListener != null ? "非空" : "空\n");
 
     }
 
@@ -85,9 +104,12 @@ public class STBDataManager implements AsyncRESTClient.OnErrorListener,AsyncREST
      * @param cityCode use wifi/IP query location in baidu service.
      *
      */
+
+    /*    */
     private void getLocationByCityCode(int cityCode){
         //DEBUG
         cityCode = 131;
+
         mRequestContent = ContentType.BAIDU_LOCATION;
         mUrcClient.requestLocationByBaiduCityCode(cityCode,this,this);
     }
@@ -114,6 +136,49 @@ public class STBDataManager implements AsyncRESTClient.OnErrorListener,AsyncREST
     private void queryOperatorByCity(Location city){
         mUrcClient.requestOperatorListByLocation(city,this,this);
     }
+
+    private void querySTBByOperator(){
+        mUrcClient.requestSetTopBoxListByOperator(mOperator,this,this);
+    }
+
+    private void querySTBByBrand(){
+        List<SetTopBox> setTopBoxes = mSTBMap.get(mBrand.getName());
+        mDataListener.onQuerySucceed(setTopBoxes);
+
+    }
+
+    public void afterSTBSelected(){
+        mUrcClient.requestPidMappingByOperator(mOperator, new AsyncRESTClient.OnResponseListener() {
+            @Override
+            public void onResponse(Object response) {
+                if (response!=null){
+                    List<PidMapping> pidMapping = ((ListResult<PidMapping>)response).list;
+                    mLocalDBManager.updatePidsToLocalDB(pidMapping);
+                    Log.d(TAG,"Updated pids to local db.");
+                }
+            }
+        },new AsyncRESTClient.OnErrorListener() {
+            @Override
+            public void onError(RESTException e) {
+                Log.d(TAG,"request pid mapping by operator error!",e);
+            }
+        });
+        mUrcClient.requestIRCodeListBySetTopBox(mSetTopBox,new AsyncRESTClient.OnResponseListener() {
+            @Override
+            public void onResponse(Object response) {
+                List<Key> keys = ((ListResult<Key>)response).list;
+                mLocalDBManager.updateKeysToLocalDB(keys);
+                Log.d(TAG,"Updated keys to local db.");
+            }
+        }, new AsyncRESTClient.OnErrorListener() {
+            @Override
+            public void onError(RESTException e) {
+                Log.d(TAG,"request keys error!",e);
+
+            }
+        });
+    }
+
     /**
      * Comparing baidu location with list,if they same, use that location as the default value.
      * @param list
@@ -143,21 +208,29 @@ public class STBDataManager implements AsyncRESTClient.OnErrorListener,AsyncREST
     }
 
     public void formatSTB(List<SetTopBox> setTopBoxes){
+        Log.d(TAG,"Format STB data.");
        // List<Map<String,List<SetTopBox>>> stbDate = new ArrayList<Map<String, List<SetTopBox>>>();
-        Map<String,List<SetTopBox>> map = new HashMap<String,List<SetTopBox>>() ;
+        mSTBMap = new HashMap<String,List<SetTopBox>>() ;
         for (int i = 0 ; i < setTopBoxes.size() ; i ++ ){
             SetTopBox stb = setTopBoxes.get(i);
             String brand = stb.getBrand();
-            if (map.get(brand) == null){
+            if (mSTBMap.get(brand) == null){
                 List<SetTopBox> modelList = new ArrayList<SetTopBox>();
                 modelList.add(stb);
-                map.put(brand,modelList);
+                mSTBMap.put(brand, modelList);
             }else {
-                List<SetTopBox> modelList = map.get(brand);
+                List<SetTopBox> modelList = mSTBMap.get(brand);
                 modelList.add(stb);
             }
         }
-        Log.d(TAG," Brand map to string " + map.toString());
+        Set<String> set = mSTBMap.keySet();
+        List<UrcObject> brandList = new ArrayList<UrcObject>();
+        for(String s : set) {
+            UrcObject brand = new UrcObject();
+            brand.setName(s);
+            brandList.add(brand);
+        }
+        mDataListener.onQuerySucceed(brandList);
     }
 
     @Override
@@ -177,12 +250,11 @@ public class STBDataManager implements AsyncRESTClient.OnErrorListener,AsyncREST
         }else {
             requestTimes = 0;
         }
+        mRequestContent = type;
         switch (type){
             case BAIDU_LOCATION:
-                mRequestContent = type;
                 getLocationByCityCode(131);
             case PROVINCE:
-                mRequestContent = type;
                 if(mAllProvince != null && mAllProvince.size() == 31){
                     Log.d(TAG,"return mAllProvince" + mAllProvince.size());
                     mDataListener.onQuerySucceed(mAllProvince);
@@ -191,12 +263,17 @@ public class STBDataManager implements AsyncRESTClient.OnErrorListener,AsyncREST
                 queryAllProvince();
                 break;
             case CITY:
-                mRequestContent = type;
                 queryCityByProvince(mProvince);
                 break;
             case OPERATOR:
                 queryOperatorByCity(mCity);
-                mRequestContent = type;
+                break;
+            case STB_BRAND:
+                querySTBByOperator();
+                break;
+            case STB_MODEL:
+                querySTBByBrand();
+
 
         }
     }
@@ -216,6 +293,7 @@ public class STBDataManager implements AsyncRESTClient.OnErrorListener,AsyncREST
                 return;
             }
         }
+        Log.d(TAG,"Content Type : " + mRequestContent.name());
         switch (mRequestContent){
             case BAIDU_LOCATION:
                 List<Location> result = ((ListResult<Location>)response).list;
@@ -263,6 +341,10 @@ public class STBDataManager implements AsyncRESTClient.OnErrorListener,AsyncREST
                 mDataListener.onQuerySucceed(operators);
                 break;
             case STB_BRAND:
+                Log.d(TAG,"Response : STB brand.");
+                List<SetTopBox> setTopBoxes = ((ListResult<SetTopBox>)response).list;
+                Log.d(TAG,"List result + " + setTopBoxes.toString());
+                formatSTB(setTopBoxes);
                 break;
             case STB_MODEL:
                 break;

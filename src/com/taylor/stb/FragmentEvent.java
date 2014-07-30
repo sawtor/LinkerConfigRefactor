@@ -7,4 +7,5 @@ import android.view.View;
  */
 public interface FragmentEvent {
     public void onViewClick(View view) ;
+    public void onViewReady(String fragmentTAG);
 }

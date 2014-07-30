@@ -45,16 +45,6 @@ public class STBSpinner extends LinearLayout implements View.OnClickListener,Dat
         initialize(context);
     }
 
-//    public STBSpinner(Context context, AttributeSet attrs) {
-//        super(context, attrs);
-//        initialize(context);
-//    }
-//
-//    public STBSpinner(Context context, AttributeSet attrs, int defStyle) {
-//        super(context, attrs, defStyle);
-//        initialize(context);
-//    }
-
     public List<? extends UrcObject> getData(){
         return this.mData;
     }

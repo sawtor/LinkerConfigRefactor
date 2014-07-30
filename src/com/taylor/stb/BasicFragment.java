@@ -26,7 +26,7 @@ public class BasicFragment extends Fragment implements View.OnClickListener,Adap
     private View mPartOfLocation,mPartOfSTB;
     public STBSpinner mSpinner;
 
-    private FragmentEvent mEventCallback ;
+    public FragmentEvent mEventCallback ;
 
     private STBDataManager.ContentType mContentType = STBDataManager.ContentType.PROVINCE;
 

@@ -1,6 +1,8 @@
 package com.taylor.stb;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +23,22 @@ public class LocationFragment extends BasicFragment {
 
     private static final String TAG = Constant.TAG;
 
+    private static final String NAME = Constant.LOCATION_FRAGMENT_NAME;
+
     public STBButton mProvinceSpinner,mCitySpinner;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG,"onCreate");
         super.onCreate(savedInstanceState);
+
+
+        Log.d("scenic"," " + getArguments());
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        Log.d(TAG,"OnActivityCreated");
         super.onActivityCreated(savedInstanceState);
         View parentLayout = getView().findViewById(R.id.part_location);
         parentLayout.setVisibility(View.VISIBLE);
@@ -36,31 +46,32 @@ public class LocationFragment extends BasicFragment {
         mCitySpinner = (STBButton) getView().findViewById(R.id.select_city);
         mProvinceSpinner.setNextButton(mCitySpinner);
         mProvinceSpinner.setContentType(STBDataManager.ContentType.PROVINCE);
-        mProvinceSpinner.setContent(null);
         mCitySpinner.setContentType(STBDataManager.ContentType.CITY);
-
         mProvinceSpinner.setOnClickListener(this);
         mCitySpinner.setOnClickListener(this);
-
-        if (savedInstanceState != null && savedInstanceState.size() > 0){
-            Location province = (Location)savedInstanceState.get("province") ;
-            Location city = (Location)savedInstanceState.get("city");
-            mProvinceSpinner.setContent(province);
-            mCitySpinner.setContent(city);
-            Log.d(TAG,"Saved instance" + province.getName() + city.getName());
-        }
-
-        Log.d(TAG,savedInstanceState.size() + "<<<<<<<<<<Size");
+        mEventCallback.onViewReady(NAME);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
+        super.onInflate(activity, attrs, savedInstanceState);
+        Log.d(TAG,"onInflate");
+        if (savedInstanceState != null){
+            Log.d(TAG,"Saved province value = " + savedInstanceState.getCharSequence("province"));
+        }
+    }
 
+    public void setProvince(Location province){
+        mProvinceSpinner.setContent(province);
+    }
+
+    public void setCity(Location city){
+        mCitySpinner.setContent(city);
     }
 
     @Override
     public void onStart() {
+        Log.d(TAG,"onStart");
         super.onStart();
         mTitle.setText(R.string.title_user_address);
         mLeft.setText(R.string.btn_next);
@@ -74,10 +85,21 @@ public class LocationFragment extends BasicFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("province",(Location)mProvinceSpinner.getContent());
-        outState.putSerializable("city",(Location)mCitySpinner.getContent());
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        Log.d(TAG,"onAttach");
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d(TAG,"onDestroy");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.d(TAG,"onDestroyView");
+        super.onDestroyView();
     }
 
     @Override
@@ -111,4 +133,8 @@ public class LocationFragment extends BasicFragment {
                 mLeft.setEnabled(true);
         }
     }
+
+
+
+
 }

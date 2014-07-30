@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import com.taylor.stb.view.STBButton;
+import com.tvezu.urc.restclient.Operator;
+import com.tvezu.urc.restclient.SetTopBox;
 import com.tvezu.urc.restclient.UrcObject;
 
 /**
@@ -12,6 +14,8 @@ import com.tvezu.urc.restclient.UrcObject;
  */
 public class STBFragment extends BasicFragment {
     private static final String TAG = Constant.TAG;
+
+    private static final String NAME = Constant.STB_FRAGMENT_NAME;
 
     public STBButton mOperatorSpinner,mBrandSpinner,mModelSpinner;
 
@@ -28,10 +32,10 @@ public class STBFragment extends BasicFragment {
         mOperatorSpinner.setContentType(STBDataManager.ContentType.OPERATOR);
         mBrandSpinner.setContentType(STBDataManager.ContentType.STB_BRAND);
         mModelSpinner.setContentType(STBDataManager.ContentType.STB_MODEL);
-        mOperatorSpinner.setContent(null);
         mOperatorSpinner.setOnClickListener(this);
         mBrandSpinner.setOnClickListener(this);
         mModelSpinner.setOnClickListener(this);
+        mEventCallback.onViewReady(NAME);
     }
 
     @Override
@@ -42,6 +46,18 @@ public class STBFragment extends BasicFragment {
         mCenter.setText(R.string.btn_next);
         mRight.setText(R.string.btn_exit);
     }
+
+    public void setOperator(Operator operator){
+        mOperatorSpinner.setContent(operator);
+    }
+    public void setBrand(UrcObject brand){
+        mBrandSpinner.setContent(brand);
+    }
+    public void setModel(SetTopBox setTopBox){
+        mModelSpinner.setContent(setTopBox);
+    }
+
+
 
     @Override
     public void onClick(View view) {
