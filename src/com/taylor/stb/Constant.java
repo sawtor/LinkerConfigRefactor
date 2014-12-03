@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public final class Constant {
 
-    public static final String TAG = "Linker2";
+    public static final String TAG = "Linker";
 
     public static final String LOCATION_FRAGMENT_NAME = "location";
     public static final String STB_FRAGMENT_NAME = "stb";
